@@ -71,8 +71,12 @@ def prognosis_tuberculosis(input_data):
 def main():
 
     #title
-    st.title("DeepTub ++ (A plataform for prognostic of Tuberculosis prediction)")
+    #st.title("DeepTub ++ (A plataform for prognostic of Tuberculosis prediction)")
+    st.subheader("Preencha os dados ao lado e clique no botão abaixo para ver o resultado")
     st.sidebar.image(img_lung)
+    st.sidebar.header("DeepTub ++")
+    st.sidebar.subheader("A  platform for prognostic of Tuberculosis prediction")
+
     NU_IDADE_N = st.sidebar.slider(
         'Idade do paciente',
         0, 125, (30)
