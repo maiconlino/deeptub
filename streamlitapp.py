@@ -69,7 +69,15 @@ def prognosis_tuberculosis(input_data):
         return (predictions[0],round(exp.predict_proba[0]*100,2),lista2)
 
 def main():
-
+    st.set_page_config(
+        page_title="DeepTub++",
+        page_icon="🧊",
+        layout="wide",
+        initial_sidebar_state="expanded",
+        menu_items={
+            'About': "Este aplicativo é fruto da tese de doutorado do aluno Maicon Herverton Lino Ferreira da Silva Barros (PPGEC-UPE) orientado pela professora Dra. Patricia Takako Endo (UPE) e pelo professor Dr. Vanderson Sampaio (FMT-AM)."
+        }
+    )
     #title
     #st.title("DeepTub ++ (A plataform for prognostic of Tuberculosis prediction)")
     st.subheader("Preencha os dados ao lado e clique no botão abaixo para ver o resultado")
