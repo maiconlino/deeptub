@@ -6,6 +6,8 @@ import lime
 import lime.lime_tabular
 from pickle import load
 from PIL import Image
+from matplotlib import pyplot as plt
+import re
 img_alerta = Image.open('alerta.png')
 
 
@@ -19,37 +21,57 @@ Y_train = pd.read_csv('Y_trainLIME_03-19-2022_03-59-34.csv', sep=';', index_col=
 colunas = ('NU_IDADE_N','TRATAMENTO','RAIOX_TORA','TESTE_TUBE','FORMA','AGRAVDOENC','BACILOSC_E','BACILOS_E2','HIV','BACILOSC_6','DIAS')
 
 def prognosis_tuberculosis(input_data):
+    with st.spinner('Carregando, por favor aguarde...'):
+        input_data_numpy = np.asarray(input_data)
+        input_reshape = input_data_numpy.reshape(1,-1)
+        #print(input_reshape)
+        base_x = pd.DataFrame(input_reshape, columns=colunas)
+        #print(base_x.head())
+        
+        test_scaled_set = scaler.transform(base_x)
+        test_scaled_set = pd.DataFrame(test_scaled_set, columns=colunas)
 
-    input_data_numpy = np.asarray(input_data)
-    input_reshape = input_data_numpy.reshape(1,-1)
-    #print(input_reshape)
-    base_x = pd.DataFrame(input_reshape, columns=colunas)
-    #print(base_x.head())
-    
-    test_scaled_set = scaler.transform(base_x)
-    test_scaled_set = pd.DataFrame(test_scaled_set, columns=colunas)
-    #print(test_scaled_set.head())
+        #print(test_scaled_set.head())
 
-    class_names = ["Cura","Óbito"]
-    explainer = lime.lime_tabular.LimeTabularExplainer(X_train.values, training_labels=Y_train,class_names=class_names, feature_names=X_train.columns, kernel_width=3, discretize_continuous=True, verbose=False)
-    exp = explainer.explain_instance(test_scaled_set.values[0], loaded_model.predict_proba, num_features=11)
-    #exp.show_in_notebook()
+        class_names = ["Cura","Óbito"]
+        explainer = lime.lime_tabular.LimeTabularExplainer(X_train.values, training_labels=Y_train,class_names=class_names, feature_names=X_train.columns, kernel_width=3, discretize_continuous=True, verbose=False)
+        exp = explainer.explain_instance(test_scaled_set.values[0], loaded_model.predict_proba, num_features=11)
+        #exp.show_in_notebook()
+        lista = exp.as_list()
+        lista2 = []
+        for lista_elemento in lista:
+            lista2.append(" ".join(re.findall("[a-zA-Z]+",  lista_elemento[0])))
+        
+        hide_table_row_index = """
+            <style>
+            tbody th {display:none}
+            .blank {display:none}
+            </style>
+            """
+        # Inject CSS with Markdown
+        st.markdown(hide_table_row_index, unsafe_allow_html=True)
+        
+        #exp.as_pyplot_figure()
+        #st.set_option('deprecation.showPyplotGlobalUse', False)
+        #st.pyplot()
+        #plt.clf()
+        #exp.show_in_notebook()
 
     predictions = loaded_model.predict(test_scaled_set)
-    predictions
+    #predictions
     if(predictions[0]==3):
         #retorno = "A probabilidade de **óbito** no prognósitco da Tuberculose é de: {}%"
         #retorno = retorno.format(round(exp.predict_proba[1]*100,2))
-        return (predictions[0],round(exp.predict_proba[1]*100,2))
+        return (predictions[0],round(exp.predict_proba[1]*100,2),lista2)
     else:
         #retorno = "A probabilidade de **cura** no prognósitco da Tuberculose é de: {}%"
         #retorno = retorno.format(round(exp.predict_proba[0]*100,2))
-        return (predictions[0],round(exp.predict_proba[0]*100,2))
+        return (predictions[0],round(exp.predict_proba[0]*100,2),lista2)
 
 def main():
 
     #title
-    st.title("DeepTub ++ Tuberculosis prediction Web App")
+    st.title("DeepTub ++ (A plataform for prognostic of Tuberculosis prediction)")
 
    
     NU_IDADE_N = st.sidebar.slider(
@@ -98,7 +120,7 @@ def main():
     )
 
     prognosis = ''
-    if st.button('Clique para ver o resultado do prognóstico da tuberculose'):
+    if st.button('Clique aqui para ver o resultado'):
         if TRATAMENTO=="1. Caso novo":
             TRATAMENTO = 1
         elif TRATAMENTO=="2. Recidiva":
@@ -181,12 +203,20 @@ def main():
             BACILOSC_6 = 4
 
         prognosis = prognosis_tuberculosis([NU_IDADE_N, TRATAMENTO, RAIOX_TORA, TESTE_TUBE, FORMA, AGRAVDOENC, BACILOSC_E, BACILOS_E2, HIV, BACILOSC_6, DIAS])
-    
+        
         if prognosis[0]==1:
-            st.info('A probabilidade de **CURA** por tuberculose é de: {}'.format(prognosis[1])+'%')
+            st.header('Cura')
+            st.metric(label='Probabilidade',value=str(prognosis[1])+'%')
+            st.text("Atributos que influenciaram para este resultado por ordem de importância")
+            st.table(prognosis[2])
         else:
-            st.info('A probabilidade de **ÓBITO** por tuberculose é de: {}'.format(prognosis[1])+'%')
-            st.image(img_alerta)
+            st.header('Óbito')
+            st.metric(label='Probabilidade',value=str(prognosis[1])+'%')
+            st.text("Atributos que influenciaram para este resultado por ordem de importância")
+            st.table(prognosis[2])
+
+
+        
 
 
 if __name__ == '__main__':
