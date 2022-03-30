@@ -8,6 +8,7 @@ from pickle import load
 from PIL import Image
 from matplotlib import pyplot as plt
 import re
+img_lung = Image.open('lung_2.png')
 
 
 loaded_model = pickle.load(open('SVM03-11-2022_02-50-37.sav','rb'))
@@ -71,8 +72,7 @@ def main():
 
     #title
     st.title("DeepTub ++ (A plataform for prognostic of Tuberculosis prediction)")
-
-   
+    st.sidebar.image(img_lung)
     NU_IDADE_N = st.sidebar.slider(
         'Idade do paciente',
         0, 125, (30)
