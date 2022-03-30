@@ -8,7 +8,6 @@ from pickle import load
 from PIL import Image
 from matplotlib import pyplot as plt
 import re
-img_alerta = Image.open('alerta.png')
 
 
 loaded_model = pickle.load(open('SVM03-11-2022_02-50-37.sav','rb'))
