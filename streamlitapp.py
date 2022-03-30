@@ -110,14 +110,17 @@ def main():
         'Resultado da sorologia para o vírus da imunodeficiência HIV',
         ('1. Positivo', '2. Negativo', '3. Em andamento', '4. Não se aplica')
     )
+    
     BACILOSC_6 = st.sidebar.selectbox(
         '11. Baciloscopia no 6º mês ',
         ('1. Positiva', '2. Negativa', '3. Não realizada', '4. Não se aplica')
     )
-    DIAS = st.sidebar.slider(
-        'Dias em que o paciente está em tratamento (desde o início do diagnóstico)',
-        0, 1095, (60)
-    )
+    DIAS = st.sidebar.number_input('Dias em que o paciente está em tratamento (desde o início do diagnóstico)',min_value=0,max_value=2000)
+
+    #DIAS = st.sidebar.slider(
+    #     'Dias em que o paciente está em tratamento (desde o início do diagnóstico)',
+    #     0, 1095, (60)
+    # )
 
     prognosis = ''
     if st.button('Clique aqui para ver o resultado'):
