@@ -218,6 +218,11 @@ def main():
 
         prognosis = prognosis_tuberculosis([NU_IDADE_N, TRATAMENTO, RAIOX_TORA, TESTE_TUBE, FORMA, AGRAVDOENC, BACILOSC_E, BACILOS_E2, HIV, BACILOSC_6, DIAS])
         
+        prognosis[2].rename(columns = {'0':'Atributos'}, inplace = True)
+
+        
+
+
         if prognosis[0]==1:
             st.header('Cura')
             st.metric(label='Probabilidade',value=str(prognosis[1])+'%')
