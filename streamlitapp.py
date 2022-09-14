@@ -218,7 +218,8 @@ def main():
 
         prognosis = prognosis_tuberculosis([NU_IDADE_N, TRATAMENTO, RAIOX_TORA, TESTE_TUBE, FORMA, AGRAVDOENC, BACILOSC_E, BACILOS_E2, HIV, BACILOSC_6, DIAS])
         
-        prognosis[2].rename(columns = {'0':'Atributos'}, inplace = True)
+        df = prognosis[2]
+        df.rename(columns = {'0':'Atributos'}, inplace = True)
 
         
 
