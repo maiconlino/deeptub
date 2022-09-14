@@ -222,6 +222,9 @@ def main():
             st.header('Cura')
             st.metric(label='Probabilidade',value=str(prognosis[1])+'%')
             st.text("Atributos que influenciaram para este resultado por ordem de importância")
+
+            st.text(prognosis[2])
+            
             st.table(prognosis[2])
         else:
             st.header('Óbito')
