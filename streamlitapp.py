@@ -83,7 +83,7 @@ def main():
     st.subheader("Preencha os dados ao lado e clique no botão abaixo para ver o resultado")
     st.sidebar.image(img_lung)
     st.sidebar.header("DeepTub ++")
-    st.sidebar.subheader("A  platform for prognostic of Tuberculosis prediction")
+    st.sidebar.subheader("A classification platform for treatment outcomes (prognosis of CURED and DIED) of Tuberculosis")
 
     NU_IDADE_N = st.sidebar.slider(
         'Idade do paciente',
