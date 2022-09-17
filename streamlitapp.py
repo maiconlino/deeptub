@@ -87,9 +87,9 @@ def main():
     st.sidebar.subheader("Uma Plataforma para Auxiliar no Prognóstico da Tuberculose")
 
     with st.sidebar:
-    selected = option_menu("Main Menu", ["Home", 'Settings'], 
+        selected = option_menu("Main Menu", ["Home", 'Settings'], 
         icons=['house', 'gear'], menu_icon="cast", default_index=1)
-    selected
+        selected
 
 
 
