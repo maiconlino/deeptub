@@ -16,7 +16,6 @@ img_lung = Image.open('lung_2.png')
 
 
 
-import streamlit as st
 from streamlit_option_menu import option_menu
 
 with st.sidebar:
