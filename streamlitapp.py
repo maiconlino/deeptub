@@ -20,6 +20,22 @@ Y_train = pd.read_csv('Y_trainLIME_03-19-2022_03-59-34.csv', sep=';', index_col=
 
 colunas = ('NU_IDADE_N','TRATAMENTO','RAIOX_TORA','TESTE_TUBE','FORMA','AGRAVDOENC','BACILOSC_E','BACILOS_E2','HIV','BACILOSC_6','DIAS')
 
+
+st.set_page_config(
+        page_title="DeepTub++",
+        page_icon="🧊",
+        layout="wide",
+        initial_sidebar_state="expanded",
+        menu_items={
+            'About': "Este aplicativo é fruto da tese de doutorado do aluno Maicon Herverton Lino Ferreira da Silva Barros (PPGEC-UPE) orientado pela professora Dra. Patricia Takako Endo (UPE) e pelo professor Dr. Vanderson Sampaio (FMT-AM)."
+        }
+    )
+    #title
+    #st.title("DeepTub ++ (A plataform for prognostic of Tuberculosis prediction)")
+st.sidebar.image(img_lung)
+st.sidebar.header("DeepTub++")
+#st.sidebar.subheader("Uma Plataforma para Auxiliar no Prognóstico da Tuberculose")
+
 def prognosis_tuberculosis(input_data):
     with st.spinner('Carregando, por favor aguarde...'):
         input_data_numpy = np.asarray(input_data)
@@ -67,25 +83,9 @@ def prognosis_tuberculosis(input_data):
         #retorno = "A probabilidade de **cura** no prognósitco da Tuberculose é de: {}%"
         #retorno = retorno.format(round(exp.predict_proba[0]*100,2))
         return (predictions[0],round(exp.predict_proba[0]*100,2),lista2)
-
-def main():
-    st.set_page_config(
-        page_title="DeepTub++",
-        page_icon="🧊",
-        layout="wide",
-        initial_sidebar_state="expanded",
-        menu_items={
-            'About': "Este aplicativo é fruto da tese de doutorado do aluno Maicon Herverton Lino Ferreira da Silva Barros (PPGEC-UPE) orientado pela professora Dra. Patricia Takako Endo (UPE) e pelo professor Dr. Vanderson Sampaio (FMT-AM)."
-        }
-    )
-    #title
-    #st.title("DeepTub ++ (A plataform for prognostic of Tuberculosis prediction)")
-    st.subheader("Preencha os dados ao lado e clique no botão abaixo para ver o resultado")
-    st.sidebar.image(img_lung)
-    st.sidebar.header("DeepTub++")
-    st.sidebar.subheader("Uma Plataforma para Auxiliar no Prognóstico da Tuberculose")
-
-
+def prediction():
+    st.subheader("Preencha os dados do paciente (👈ao lado) e clique no botão (👇abaixo) para ver o resultado")
+    st.sidebar.warning("Informe aqui os dados do paciente 👇")
     NU_IDADE_N = st.sidebar.slider(
         'Idade do paciente',
         0, 125, (30)
@@ -219,26 +219,62 @@ def main():
 
         prognosis = prognosis_tuberculosis([NU_IDADE_N, TRATAMENTO, RAIOX_TORA, TESTE_TUBE, FORMA, AGRAVDOENC, BACILOSC_E, BACILOS_E2, HIV, BACILOSC_6, DIAS])
         
-        st.text(type(prognosis[2]))
+        #st.text(type(prognosis[2]))
         #df.rename(columns = {'0':'Atributos'}, inplace = True)
 
         
 
 
         if prognosis[0]==1:
-            st.header('Cura')
-            st.metric(label='Probabilidade',value=str(prognosis[1])+'%')
+            st.header('Classificado como: Cura')
+            st.header('Probabilidade de:')
+            st.metric(label=' ',value=str(prognosis[1])+'%')
             st.text("Atributos que influenciaram para este resultado por ordem de importância")
             st.dataframe(prognosis[2])
         else:
-            st.header('Óbito')
-            st.metric(label='Probabilidade',value=str(prognosis[1])+'%')
+            st.header('Classificado como: Óbito')
+            st.metric(label=' ',value=str(prognosis[1])+'%')
             st.text("Atributos que influenciaram para este resultado por ordem de importância")
             st.dataframe(prognosis[2])
 
+def main():
+    st.write("# Bem-vindo a DeepTub++! 👋")
+    st.markdown(
+        """
+        DeepTub++ é uma plataforma para auxiliar no **prognóstico da tuberculose** através de um modelo de inteligência artificial (IA) chamado de _Support Vector Machines (SVM)_.
 
-        
+        **👈 Primeiro selecione no menu à esquerda ** a opção desejada!
+    """
+    )
+    
+    
+def about():
+    st.write("# Sobre a DeepTub++!")
+    st.markdown(
+        """
+        **DeepTub++** é uma plataforma para auxiliar no **prognóstico da tuberculose** através de um modelo de inteligência artificial (IA) chamado de _Support Vector Machines (SVM)_.
 
+        A plataforma **DeepTub++** foi criada com o objetivo de **auxiliar profissionais de saúde a classificar/prever o prognóstico da tuberculose**. Desta forma, um paciente ao ser diagnosticado com tuberculose, e após ter sido registrado no Sistema de Informação de Agravos de Notificação (SINAN), inicia o seu tratamento no Sistema Único de Saúde (SUS) e está apto para ser classificado na plataforma. O profissional de saúde precisa então preencher 11 atributos aos quais incluem dados socio-demográficos, clínicos e larobatoriais.
 
-if __name__ == '__main__':
-    main()
+        O resultado da classificação **não é um prognóstico médico**, mas um resultado predito por um modelo de machine learning (ML) que foi treinado usando a base de dados SINAN-TB de pacientes diagnosticados com tuberculose entre os anos de 2001 a 2019 no Brasil.
+
+        **Não recomendamos o uso desta plataforma por pacientes que desejam prever o prognóstico da tuberculose. Também não recomendamos suspender ou ascender o tratamento da tuberculose através destes resultados. É de extrema necessidade o acompanhamento por um profissional de saúde qualificado do SUS.** 
+
+    """
+    )
+
+def visualization():
+    st.write("# Acompanhamento das classificações de um paciente!")
+
+#if __name__ == '__main__':
+#    main()
+
+page_names_to_funcs = {
+    "Escolha uma opção...": main,
+    "Prognóstico": prediction,
+    "Acompanhar": visualization,
+    "Sobre a plataforma": about
+}
+
+demo_name = st.sidebar.selectbox("Menu", page_names_to_funcs.keys())
+page_names_to_funcs[demo_name]()
