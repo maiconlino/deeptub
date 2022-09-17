@@ -7,30 +7,9 @@ import lime.lime_tabular
 from pickle import load
 from PIL import Image
 from matplotlib import pyplot as plt
+from streamlit_option_menu import option_menu
 import re
 img_lung = Image.open('lung_2.png')
-
-
-
-
-
-
-
-from streamlit_option_menu import option_menu
-
-with st.sidebar:
-    selected = option_menu("Main Menu", ["Home", 'Settings'], 
-        icons=['house', 'gear'], menu_icon="cast", default_index=1)
-    selected
-
-
-
-
-
-
-
-
-
 
 
 
