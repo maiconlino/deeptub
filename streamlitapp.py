@@ -11,6 +11,33 @@ import re
 img_lung = Image.open('lung_2.png')
 
 
+
+
+
+
+
+import streamlit as st
+from streamlit_option_menu import option_menu
+
+with st.sidebar:
+    selected = option_menu("Main Menu", ["Home", 'Settings'], 
+        icons=['house', 'gear'], menu_icon="cast", default_index=1)
+    selected
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 loaded_model = pickle.load(open('SVM03-11-2022_02-50-37.sav','rb'))
 scalerfile = 'scaler2_03-19-2022_02-19-47.pkl'
 scaler = load(open(scalerfile, 'rb'))
@@ -82,8 +109,12 @@ def main():
     #st.title("DeepTub ++ (A plataform for prognostic of Tuberculosis prediction)")
     st.subheader("Preencha os dados ao lado e clique no botão abaixo para ver o resultado")
     st.sidebar.image(img_lung)
-    st.sidebar.header("DeepTub ++")
-    st.sidebar.subheader("A classification platform for treatment outcomes (prognosis of CURED and DIED) of Tuberculosis")
+    st.sidebar.header("DeepTub++")
+    st.sidebar.subheader("Uma Plataforma para Auxiliar no Prognóstico da Tuberculose")
+
+
+
+
 
     NU_IDADE_N = st.sidebar.slider(
         'Idade do paciente',
