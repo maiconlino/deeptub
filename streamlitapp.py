@@ -7,7 +7,6 @@ import lime.lime_tabular
 from pickle import load
 from PIL import Image
 from matplotlib import pyplot as plt
-from streamlit_option_menu import option_menu
 import re
 img_lung = Image.open('lung_2.png')
 
@@ -85,13 +84,6 @@ def main():
     st.sidebar.image(img_lung)
     st.sidebar.header("DeepTub++")
     st.sidebar.subheader("Uma Plataforma para Auxiliar no Prognóstico da Tuberculose")
-
-    #with st.sidebar:
-    #    selected = option_menu("Main Menu", ["Home", 'Settings'], 
-    #    icons=['house', 'gear'], menu_icon="cast", default_index=1)
-    #    selected
-
-
 
 
     NU_IDADE_N = st.sidebar.slider(
