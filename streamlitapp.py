@@ -12,10 +12,6 @@ import re
 img_lung = Image.open('lung_2.png')
 
 
-
-
-
-
 loaded_model = pickle.load(open('SVM03-11-2022_02-50-37.sav','rb'))
 scalerfile = 'scaler2_03-19-2022_02-19-47.pkl'
 scaler = load(open(scalerfile, 'rb'))
@@ -90,6 +86,10 @@ def main():
     st.sidebar.header("DeepTub++")
     st.sidebar.subheader("Uma Plataforma para Auxiliar no Prognóstico da Tuberculose")
 
+    with st.sidebar:
+    selected = option_menu("Main Menu", ["Home", 'Settings'], 
+        icons=['house', 'gear'], menu_icon="cast", default_index=1)
+    selected
 
 
 
