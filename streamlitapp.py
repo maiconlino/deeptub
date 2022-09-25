@@ -231,10 +231,10 @@ def prediction():
             st.write('<h2>Probabilidade de: ', value,'% </h2> ', unsafe_allow_html=True)
             #st.metric(label=' ',value=str(prognosis[1])+'%')
             st.text("Atributos que influenciaram para este resultado por ordem de importância")
-            st.dataframe(prognosis[2])
+            #st.dataframe(prognosis[2])
             for X in prognosis[2]:
                 st.write(X)
-            #st.dataframe(prognosis[3])
+            st.dataframe(prognosis[3])
         else:
             st.header('Classificado como: Óbito 🔴')
             st.write('<h2>Probabilidade de: ', value,'%</h2>', unsafe_allow_html=True)
