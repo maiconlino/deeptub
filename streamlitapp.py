@@ -78,11 +78,11 @@ def prognosis_tuberculosis(input_data):
     if(predictions[0]==3):
         #retorno = "A probabilidade de **óbito** no prognósitco da Tuberculose é de: {}%"
         #retorno = retorno.format(round(exp.predict_proba[1]*100,2))
-        return (predictions[0],round(exp.predict_proba[1]*100,2),lista2)
+        return (predictions[0],round(exp.predict_proba[1]*100,2),lista2,lista)
     else:
         #retorno = "A probabilidade de **cura** no prognósitco da Tuberculose é de: {}%"
         #retorno = retorno.format(round(exp.predict_proba[0]*100,2))
-        return (predictions[0],round(exp.predict_proba[0]*100,2),lista2)
+        return (predictions[0],round(exp.predict_proba[0]*100,2),lista2,lista)
 def prediction():
     st.subheader("Preencha os dados do paciente (👈ao lado) e clique no botão (👇abaixo) para ver o resultado")
     st.sidebar.warning("Informe aqui os dados do paciente 👇")
@@ -231,11 +231,14 @@ def prediction():
             st.metric(label=' ',value=str(prognosis[1])+'%')
             st.text("Atributos que influenciaram para este resultado por ordem de importância")
             st.dataframe(prognosis[2])
+            st.dataframe(prognosis[3])
         else:
             st.header('Classificado como: Óbito')
+            st.header('Probabilidade de:')
             st.metric(label=' ',value=str(prognosis[1])+'%')
             st.text("Atributos que influenciaram para este resultado por ordem de importância")
             st.dataframe(prognosis[2])
+            st.dataframe(prognosis[3])
 
 def main():
     st.write("# Bem-vindo a DeepTub++! 👋")
