@@ -227,18 +227,18 @@ def prediction():
 
         if prognosis[0]==1:
             st.header('Classificado como: Cura')
-            st.header('Probabilidade de:')
+            st.header('Probabilidade de: ', str(prognosis[1])+'%')
             st.metric(label=' ',value=str(prognosis[1])+'%')
             st.text("Atributos que influenciaram para este resultado por ordem de importância")
             st.dataframe(prognosis[2])
-            st.dataframe(prognosis[3])
+            #st.dataframe(prognosis[3])
         else:
             st.header('Classificado como: Óbito')
-            st.header('Probabilidade de:')
+            st.header('Probabilidade de: ', str(prognosis[1])+'%')
             st.metric(label=' ',value=str(prognosis[1])+'%')
             st.text("Atributos que influenciaram para este resultado por ordem de importância")
             st.dataframe(prognosis[2])
-            st.dataframe(prognosis[3])
+            #st.dataframe(prognosis[3])
 
 def main():
     st.write("# Bem-vindo a DeepTub++! 👋")
