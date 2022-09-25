@@ -228,14 +228,14 @@ def prediction():
         if prognosis[0]==1:
             
             st.header('Classificado como: Cura')
-            st.write('Probabilidade de: <b>', value,'% </b>', unsafe_allow_html=True)
+            st.write('<h1>Probabilidade de: <b>', value,'% </b></h1>', unsafe_allow_html=True)
             #st.metric(label=' ',value=str(prognosis[1])+'%')
             st.text("Atributos que influenciaram para este resultado por ordem de importância")
             st.dataframe(prognosis[2])
             #st.dataframe(prognosis[3])
         else:
             st.header('Classificado como: Óbito')
-            st.write('Probabilidade de: ', value,'%')
+            st.write('<h1>Probabilidade de: <b>', value,'% </b></h1>', unsafe_allow_html=True)
             #st.metric(label=' ',value=str(prognosis[1])+'%')
             st.text("Atributos que influenciaram para este resultado por ordem de importância")
             st.dataframe(prognosis[2])
