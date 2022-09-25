@@ -225,23 +225,46 @@ def prediction():
         
 
         value=str(prognosis[1])
+
+        ListaResultado = []
+        for X in prognosis[2]:
+            if(X=="BACILOSC"):
+                ListaResultado.append("BACILOSC_6")
+            elif (X=="TESTE TUBE"):
+                ListaResultado.append("TESTE_TUBE")
+            elif (X=="NU IDADE N"):
+                ListaResultado.append("IDADE")
+            elif (X=="BACILOSC E"):
+                ListaResultado.append("BACILOS_E2")
+            elif (X=="RAIOX TORA"):
+                ListaResultado.append("RAIOX_TORA")
+            else:
+                ListaResultado.append(X)
+        
+        #ListaResultadoProbabilidade = []
+        #for Y in prognosis[3]:
+            #st.write(Y[1])
+        #    resultProba = round(Y[1]*100,2);
+        #    if (resultProba<0):
+        #        resultProba = resultProba*-1
+        #    ListaResultadoProbabilidade.append(resultProba)
+        
+        #df = pd.DataFrame({"Attributes" : ListaResultado, "Probability" : ListaResultadoProbabilidade})
+        df = pd.DataFrame({"Attributes" : ListaResultado})
         if prognosis[0]==1:
-            
             st.header('Classificado como: Cura 🔵')
             st.write('<h2>Probabilidade de: ', value,'% </h2> ', unsafe_allow_html=True)
             #st.metric(label=' ',value=str(prognosis[1])+'%')
             st.text("Atributos que influenciaram para este resultado por ordem de importância")
             #st.dataframe(prognosis[2])
-            for X in prognosis[2]:
-                st.write(X)
-            st.dataframe(prognosis[3])
+            st.dataframe(df)
         else:
             st.header('Classificado como: Óbito 🔴')
-            st.write('<h2>Probabilidade de: ', value,'%</h2>', unsafe_allow_html=True)
+            st.write('<h2>Probabilidade de: ', value,'% </h2> ', unsafe_allow_html=True)
             #st.metric(label=' ',value=str(prognosis[1])+'%')
             st.text("Atributos que influenciaram para este resultado por ordem de importância")
-            st.dataframe(prognosis[2])
-            #st.dataframe(prognosis[3])
+            #st.dataframe(prognosis[2])
+            st.dataframe(df)
 
 def main():
     st.write("# Bem-vindo a DeepTub++! 👋")
