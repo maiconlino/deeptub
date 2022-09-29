@@ -271,7 +271,12 @@ def main():
     st.markdown(
         """
         DeepTub++ é uma plataforma para auxiliar no **prognóstico da tuberculose** através de um modelo de inteligência artificial (IA) chamado de _Support Vector Machines (SVM)_.
+    """)
+    st.markdown("""---""")
+    st.error("🚨ATENÇÃO!!! O resultado apresentado pela plataforma **não é um prognóstico médico**, mas um resultado predito por um modelo de machine learning (ML). **Não recomendamos o uso desta plataforma por pacientes que desejam prever o prognóstico da tuberculose. Também não recomendamos suspender ou ascender o tratamento da tuberculose através destes resultados. É de extrema necessidade o acompanhamento por um profissional de saúde qualificado do SUS**.")
 
+    st.markdown(
+        """        
         **👈 Primeiro selecione no menu à esquerda ** a opção desejada!
     """
     )
